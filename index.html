@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MediKiosk</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f6f8fb;color:#0b1220;min-height:100vh}
+  body{background:linear-gradient(135deg,#eef2ff 0%,#f6f8fb 50%,#eff6ff 100%)!important;background-attachment:fixed!important}
+:root{--b:#2563eb;--bd:#1d4ed8;--d:#dc2626;--s:#059669;--br:#e2e8f0;--m:#64748b}
+.h{background:#fff;border-bottom:1px solid var(--br);padding:11px 14px;position:sticky;top:0;z-index:50}
+.hi{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.lg{display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit}
+.lm{width:34px;height:34px;border-radius:10px;background:var(--b);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+.lt{font-weight:800;font-size:14px;line-height:1.1}.ls{font-size:10px;color:var(--m)}
+.pb{background:#fef3c7;color:#92400e;font-size:10px;text-align:center;padding:3px;border-top:1px solid #fde68a}
+.mn{padding:14px;max-width:900px;margin:0 auto}
+h1{font-size:23px;font-weight:800;line-height:1.2;margin-bottom:6px}
+h2{font-size:18px;font-weight:700;margin-bottom:8px}
+p{line-height:1.5;color:#334155;font-size:14px}
+.mu{color:var(--m);font-size:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;font-weight:700;border:none;cursor:pointer;padding:10px 14px;font-size:14px;font-family:inherit}
+.btn:active{transform:scale(.97)}
+.blg{padding:14px 22px;font-size:16px;border-radius:16px}
+.bsm{padding:6px 10px;font-size:12px}
+.bp{background:var(--b);color:#fff}.bs{background:#fff;color:#0b1220;border:1.5px solid var(--br)}
+.bg{background:transparent;color:var(--b)}.bd{background:var(--d);color:#fff}
+.card{background:#fff;border-radius:16px;border:1px solid var(--br);padding:15px;box-shadow:0 1px 3px rgba(15,23,42,.04);margin-bottom:12px}
+.in{width:100%;padding:11px 13px;border-radius:11px;border:1.5px solid var(--br);background:#fff;font-size:15px;font-family:inherit;color:#0b1220}
+.in:focus{outline:none;border-color:var(--b)}
+textarea.in{min-height:90px;resize:vertical}
+.lb{display:block;font-size:11px;font-weight:700;color:#334155;margin-bottom:4px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:600px){.g2,.g3{grid-template-columns:1fr}h1{font-size:20px}}
+.mt2{margin-top:8px}.mt3{margin-top:12px}.mt4{margin-top:16px}.mt6{margin-top:24px}
+.mb2{margin-bottom:8px}.mb3{margin-bottom:12px}.mb4{margin-bottom:16px}
+.ct{text-align:center}
+.fw{display:flex;flex-wrap:wrap;gap:8px}
+.bgw{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.bdg{display:inline-block;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:700}
+.bn{background:#f1f5f9;color:#475569}
+.bh{background:#fef3c7;color:#92400e}
+.bc{background:#fee2e2;color:#991b1b}
+.bok{background:#d1fae5;color:#065f46}
+.bi{background:#dbeafe;color:#1e40af}
+.pr{width:100%;height:9px;background:#e2e8f0;border-radius:999px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,#3b82f6,#1d4ed8);transition:width .4s}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cb{padding:20px 10px;border-radius:16px;border:2px solid var(--br);background:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;color:#0b1220}
+.cb.y{border-color:#a7f3d0;background:#ecfdf5}
+.cb.n{border-color:#fecaca;background:#fef2f2}
+.sr{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.sbb{width:46px;height:46px;border-radius:11px;border:2px solid var(--br);background:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;color:#0b1220}
+.sbb:active{border-color:var(--b);background:#dbeafe}
+.vw{display:flex;flex-direction:column;align-items:center;gap:8px;margin:14px 0}
+.vb{width:82px;height:82px;border-radius:50%;border:none;background:var(--b);color:#fff;font-size:30px;cursor:pointer;box-shadow:0 6px 18px -6px rgba(37,99,235,.5)}
+.vb.lst{background:var(--d);animation:pu 1.2s infinite}
+@keyframes pu{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.5)}50%{box-shadow:0 0 0 14px rgba(220,38,38,0)}}
+.vs{font-size:12px;color:var(--m);text-align:center;min-height:16px}
+.rf{background:#fef2f2;border:2px solid #fca5a5;border-radius:16px;padding:14px;color:#7f1d1d;margin-bottom:12px}
+.rfh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.rfi{width:38px;height:38px;border-radius:50%;background:var(--d);color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px}
+.mc{display:block;text-decoration:none;color:inherit;border-radius:14px;border:2px solid var(--br);padding:14px;background:#fff}
+.mc:active{border-color:var(--b);background:#eff6ff}
+  .g2 .mc:nth-child(1){background:linear-gradient(135deg,#dbeafe,#bfdbfe);border-color:#93c5fd}.g2 .mc:nth-child(2){background:linear-gradient(135deg,#d1fae5,#a7f3d0);border-color:#6ee7b7}.g2 .mc:nth-child(3){background:linear-gradient(135deg,#fee2e2,#fecaca);border-color:#fca5a5}.g2 .mc:nth-child(4){background:linear-gradient(135deg,#ede9fe,#ddd6fe);border-color:#c4b5fd}.g2 .mc:nth-child(5){background:linear-gradient(135deg,#e2e8f0,#cbd5e1);border-color:#94a3b8}.g2 .mc:nth-child(6){background:linear-gradient(135deg,#fce7f3,#fbcfe8);border-color:#f9a8d4}
+  @keyframes mkIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}.g2 .mc{animation:mkIn .5s ease backwards}.g2 .mc:nth-child(1){animation-delay:.05s}.g2 .mc:nth-child(2){animation-delay:.12s}.g2 .mc:nth-child(3){animation-delay:.19s}.g2 .mc:nth-child(4){animation-delay:.26s}.g2 .mc:nth-child(5){animation-delay:.33s}.g2 .mc:nth-child(6){animation-delay:.40s}.mc{transition:transform .18s ease,box-shadow .18s ease}.mc:active{transform:scale(1.08);box-shadow:0 18px 40px -14px rgba(37,99,235,.5);position:relative;z-index:5}
+.me{font-size:26px;margin-bottom:4px}
+.mtt{font-weight:800;font-size:14px}
+.ms{font-size:11px;color:var(--m)}
+.st{background:#fff;border:1px solid var(--br);border-radius:11px;padding:10px}
+.sv{font-size:20px;font-weight:800;line-height:1}
+.sl2{font-size:10px;color:var(--m);margin-top:3px}
+.pc{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:12px;border:1px solid var(--br);background:#fff;margin-bottom:8px;cursor:pointer;text-decoration:none;color:inherit}
+.pc.pri{border-left:4px solid var(--d);background:#fef2f2}
+.pa{width:38px;height:38px;border-radius:10px;background:#dbeafe;color:var(--bd);display:grid;place-items:center;font-weight:800;flex-shrink:0;font-size:14px}
+.pi{flex:1;min-width:0}
+.pn{font-weight:800;font-size:13px}
+.pm{font-size:10px;color:var(--m);margin-top:2px}
+.pcm{font-size:11px;color:#334155;margin-top:3px}
+.emp{text-align:center;padding:24px 14px}
+.ei{font-size:38px;margin-bottom:6px}
+.et{font-weight:800;font-size:14px}
+.tl{position:relative;padding-left:20px;border-left:2px solid #bfdbfe}
+.ti{position:relative;margin-bottom:14px}
+.tdot{position:absolute;left:-28px;top:2px;width:16px;height:16px;border-radius:50%;background:var(--b);border:4px solid #fff}
+.tdt{font-size:10px;color:var(--m)}
+.ttl{font-weight:800;font-size:13px;margin:1px 0}
+.tds{font-size:11px;color:#334155}
+.stg{display:flex;flex-direction:column;gap:3px;margin-top:6px;font-size:11px}
+.sd{color:var(--s)}.sa{color:var(--b);font-weight:700}.sp{color:#94a3b8}
+.ft{text-align:center;padding:14px;font-size:10px;color:var(--m)}
+.hd{display:none!important}
+pre{white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.55}
+input[type=file]{padding:8px;border:1.5px dashed var(--br);border-radius:10px;font-size:12px;width:100%}
+.tab-bar{display:flex;gap:4px;border-bottom:1px solid var(--br);margin-bottom:14px;overflow-x:auto}
+.tab{padding:8px 12px;font-size:13px;font-weight:700;color:var(--m);cursor:pointer;border:none;background:none;font-family:inherit;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.act{color:var(--b);border-bottom-color:var(--b)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+  <script>
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const DB={
+  g:(k,f)=>{try{const v=localStorage.getItem('mk_'+k);return v?JSON.parse(v):f}catch(e){return f}},
+  s:(k,v)=>{localStorage.setItem('mk_'+k,JSON.stringify(v))},
+  push:(k,x)=>{const a=DB.g(k,[]);a.push(x);DB.s(k,a);return x},
+  upd:(k,id,p)=>{const a=DB.g(k,[]);const i=a.findIndex(x=>x.id===id);if(i>=0)a[i]=Object.assign({},a[i],p);DB.s(k,a)},
+  find:(k,id)=>DB.g(k,[]).find(x=>x.id===id)
+};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const now=()=>new Date().toISOString();
+const fdate=iso=>{try{return new Date(iso).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})}catch(e){return iso}};
+
+let L='en';
+const T={
+  en:{start:'START',help:'HELP',sub:'Complete your medical history before meeting your doctor.',privacy:'Your information is handled securely and only shared with your consent.',consent:'Your Consent',cbody:'We will ask about your health. You may upload medical documents. A doctor will review this information. Nothing is shared without your permission.',agree:'I Agree',decline:'I Do Not Agree',name:'Name',age:'Age',sex:'Sex',dept:'Department',cont:'Continue',back:'Back',yes:'Yes',no:'No',ns:'Not sure',pna:'Prefer not to answer',iv:'Medical History Interview',dc:'Medical Documents',tl:'Medical Timeline',sm:'Your Medical Summary',rd:'Read aloud',rf:'Potential emergency symptoms detected. Please wait for immediate medical assessment.',cp:'Please describe your main problem in your own words.',ai:'AI-generated draft — physician verification required.',done:'Completed',dmsg:'Please proceed to the indicated waiting area.',pmsg:'Medical staff have been alerted. Please remain available for immediate assessment.',wait:'Waiting',inprog:'In Progress',sready:'Summary Ready',pri:'Priority',ver:'Verified',todays:'Today\'s Patients',nopat:'No patients yet.',noalert:'No priority alerts.',ack:'Acknowledge',assessed:'Mark Assessed',verifs:'Verify',confirm:'Confirm Summary',phver:'PHYSICIAN VERIFIED'},
+  hi:{start:'शुरू करें',help:'सहायता',sub:'डॉक्टर से मिलने से पहले अपना चिकित्सा इतिहास पूरा करें।',privacy:'आपकी जानकारी सुरक्षित रूप से संभाली जाती है।',consent:'आपकी सहमति',cbody:'हम आपके स्वास्थ्य के बारे में पूछेंगे। डॉक्टर इसकी समीक्षा करेंगे।',agree:'मैं सहमत हूँ',decline:'मैं सहमत नहीं हूँ',name:'नाम',age:'उम्र',sex:'लिंग',dept:'विभाग',cont:'जारी रखें',back:'पीछे',yes:'हाँ',no:'नहीं',ns:'पता नहीं',pna:'बताना नहीं चाहता',iv:'चिकित्सा इतिहास साक्षात्कार',dc:'चिकित्सा दस्तावेज़',tl:'चिकित्सा समयरेखा',sm:'आपका चिकित्सा सारांश',rd:'सुनें',rf:'संभावित आपातकालीन लक्षण। कृपया तत्काल मूल्यांकन की प्रतीक्षा करें।',cp:'कृपया अपनी मुख्य समस्या बताएं।',ai:'AI मसौदा — चिकित्सक सत्यापन आवश्यक।',done:'पूर्ण',dmsg:'कृपया संकेतित प्रतीक्षा क्षेत्र में जाएँ।',pmsg:'चिकित्सा कर्मचारियों को सूचित किया गया। कृपया उपलब्ध रहें।',wait:'प्रतीक्षारत',inprog:'प्रगति में',sready:'सारांश तैयार',pri:'प्राथमिकता',ver:'सत्यापित',todays:'आज के मरीज़',nopat:'अभी कोई मरीज़ नहीं।',noalert:'कोई अलर्ट नहीं।',ack:'स्वीकार',assessed:'मूल्यांकित',verifs:'सत्यापित करें',confirm:'सारांश की पुष्टि',phver:'चिकित्सक द्वारा सत्यापित'}
+};
+const t=k=>(T[L]&&T[L][k])||T.en[k]||k;
+
+const PW=[
+ {id:'chest',trig:['chest','सीने','seene'],qs:[
+  {id:'cc',sec:'Chief Complaint',txt:'Tell me about your chest pain.',ty:'text'},
+  {id:'onset',sec:'History of Present Illness',txt:'When did the pain start?',ty:'text'},
+  {id:'cpsev',sec:'History of Present Illness',txt:'How severe is the pain now? (0-10)',ty:'scale',min:0,max:10},
+  {id:'cprad',sec:'History of Present Illness',txt:'Does the pain spread to your arm, jaw, or back?',ty:'bool'},
+  {id:'cpbreath',sec:'History of Present Illness',txt:'Are you having difficulty breathing?',ty:'bool',rf:1},
+  {id:'cpsweat',sec:'History of Present Illness',txt:'Are you sweating heavily or feeling dizzy?',ty:'bool',rf:1},
+  {id:'cpworse',sec:'History of Present Illness',txt:'Does activity make the pain worse?',ty:'bool'},
+  {id:'cpbefore',sec:'Past Medical History',txt:'Have you had this pain before?',ty:'bool'}]},
+ {id:'fever',trig:['fever','बुखार','bukhar'],qs:[
+  {id:'fe_days',sec:'History of Present Illness',txt:'How many days have you had fever?',ty:'num'},
+  {id:'fe_high',sec:'History of Present Illness',txt:'Highest temperature measured?',ty:'text'},
+  {id:'fe_chill',sec:'History of Present Illness',txt:'Chills or shivering?',ty:'bool'},
+  {id:'fe_cough',sec:'Review of Systems',txt:'Cough or cold?',ty:'bool'},
+  {id:'fe_rash',sec:'Review of Systems',txt:'Any rash?',ty:'bool'},
+  {id:'fe_travel',sec:'Personal / Social History',txt:'Recent travel?',ty:'bool'}]},
+ {id:'abdo',trig:['stomach','abdominal','पेट','pet'],qs:[
+  {id:'ab_loc',sec:'History of Present Illness',txt:'Where exactly is the pain?',ty:'text'},
+  {id:'ab_sev',sec:'History of Present Illness',txt:'How severe? (0-10)',ty:'scale',min:0,max:10},
+  {id:'ab_vom',sec:'Review of Systems',txt:'Are you vomiting?',ty:'bool'},
+  {id:'ab_blood',sec:'Review of Systems',txt:'Any blood in vomit or stool?',ty:'bool',rf:1},
+  {id:'ab_burn',sec:'Review of Systems',txt:'Burning during urination?',ty:'bool'}]},
+ {id:'head',trig:['headache','सिरदर्द','sir'],qs:[
+  {id:'ha_onset',sec:'History of Present Illness',txt:'When did the headache start?',ty:'text'},
+  {id:'ha_sev',sec:'History of Present Illness',txt:'How severe? (0-10)',ty:'scale',min:0,max:10},
+  {id:'ha_vision',sec:'Review of Systems',txt:'Vision changes or blurring?',ty:'bool'},
+  {id:'ha_weak',sec:'Review of Systems',txt:'Sudden weakness on one side?',ty:'bool',rf:1},
+  {id:'ha_speech',sec:'Review of Systems',txt:'Difficulty speaking?',ty:'bool',rf:1},
+  {id:'ha_naus',sec:'Review of Systems',txt:'Nausea or vomiting?',ty:'bool'}]},
+ {id:'cough',trig:['cough','खांसी','khansi','breathless'],qs:[
+  {id:'cg_days',sec:'History of Present Illness',txt:'How many days of cough?',ty:'num'},
+  {id:'cg_type',sec:'History of Present Illness',txt:'Dry or with sputum?',ty:'ch',opts:[{v:'dry',l:'Dry'},{v:'sputum',l:'With sputum'}]},
+  {id:'cg_blood',sec:'Review of Systems',txt:'Any blood in sputum?',ty:'bool',rf:1},
+  {id:'cg_breath',sec:'History of Present Illness',txt:'Short of breath at rest?',ty:'bool',rf:1},
+  {id:'cg_smoke',sec:'Personal / Social History',txt:'Do you smoke?',ty:'ch',opts:[{v:'no',l:'Never'},{v:'yes',l:'Yes'},{v:'former',l:'Former'}]}]},
+ {id:'weak',trig:['weakness','fatigue','कमजोरी','kamzori'],qs:[
+  {id:'wk_days',sec:'History of Present Illness',txt:'How long feeling weak?',ty:'text'},
+  {id:'wk_app',sec:'Personal / Social History',txt:'Appetite?',ty:'ch',opts:[{v:'good',l:'Good'},{v:'reduced',l:'Reduced'},{v:'poor',l:'Poor'}]},
+  {id:'wk_wt',sec:'Review of Systems',txt:'Unintended weight loss?',ty:'bool'},
+  {id:'wk_fev',sec:'Review of Systems',txt:'Any fever?',ty:'bool'}]}
+];
+const GEN={qs:[
+ {id:'cc',sec:'Chief Complaint',txt:'Please describe your main problem.',ty:'text'},
+ {id:'gen_dur',sec:'History of Present Illness',txt:'How long have you had this problem?',ty:'text'},
+ {id:'gen_sev',sec:'History of Present Illness',txt:'How severe is it?',ty:'ch',opts:[{v:'mild',l:'Mild'},{v:'moderate',l:'Moderate'},{v:'severe',l:'Severe'}]}]};
+const CQ=[
+ {id:'alyn',sec:'Drug / Allergy History',txt:'Do you have any drug allergies?',ty:'bool'},
+ {id:'allist',sec:'Drug / Allergy History',txt:'If yes, which medicines?',ty:'text',if:a=>a.alyn==='yes'},
+ {id:'pmh',sec:'Past Medical History',txt:'Any long-term conditions (diabetes, BP, asthma)?',ty:'bool'},
+ {id:'pmhl',sec:'Past Medical History',txt:'Which ones?',ty:'text',if:a=>a.pmh==='yes'},
+ {id:'psh',sec:'Past Surgical History',txt:'Any past surgeries?',ty:'bool'},
+ {id:'meds',sec:'Current Medications',txt:'Are you currently taking any medicines?',ty:'bool'},
+ {id:'medsl',sec:'Current Medications',txt:'Which medicines?',ty:'text',if:a=>a.meds==='yes'},
+ {id:'fam',sec:'Family History',txt:'Family history of diabetes, heart disease, or cancer?',ty:'bool'},
+ {id:'smoke',sec:'Personal / Social History',txt:'Do you smoke or use tobacco?',ty:'ch',opts:[{v:'no',l:'No'},{v:'yes',l:'Yes'},{v:'former',l:'Former'}]},
+ {id:'alc',sec:'Personal / Social History',txt:'Do you consume alcohol?',ty:'ch',opts:[{v:'no',l:'No'},{v:'occ',l:'Occasionally'},{v:'reg',l:'Regularly'}]}
+];
+const RF=[
+ {id:'RF1',l:'Chest discomfort with breathing difficulty',c:a=>((a.cc||'')+(a.cpbreath||''))&&(a.cpbreath==='yes')&&((a.cc||'').toLowerCase().includes('chest')||L==='hi')},
+ {id:'RF2',l:'Chest pain with sweating or dizziness',c:a=>a.cpsweat==='yes'&&(a.cc||'').toLowerCase().includes('chest')},
+ {id:'RF3',l:'Sudden weakness or numbness',c:a=>a.ha_weak==='yes'},
+ {id:'RF4',l:'Difficulty speaking',c:a=>a.ha_speech==='yes'},
+ {id:'RF5',l:'Active bleeding reported',c:a=>a.ab_blood==='yes'||a.cg_blood==='yes'},
+ {id:'RF6',l:'Breathing difficulty',c:a=>a.cg_breath==='yes'}
+];
+function detRF(answers){
+  return RF.filter(r=>{try{return r.c(answers)}catch(e){return false}}).map(r=>({ruleId:r.id,reason:r.l,severity:'CRITICAL'}));
+}
+
+function pickP(c){const lc=(c||'').toLowerCase();for(let i=0;i<PW.length;i++){const p=PW[i];for(let j=0;j<p.trig.length;j++){if(lc.indexOf(p.trig[j].toLowerCase())>=0)return p}}return GEN}
+function bldQ(c){const p=pickP(c);return p.qs.concat(CQ)}
+function nxtQ(qs,ans){for(let i=0;i<qs.length;i++){const q=qs[i];if(ans[q.id]!==undefined)continue;if(q.if&&!q.if(ans))continue;return q}return null}
+function prog(qs,ans){const vis=qs.filter(q=>!q.if||q.if(ans));if(!vis.length)return 1;let done=0;for(let i=0;i<vis.length;i++)if(ans[vis[i].id]!==undefined)done++;return done/vis.length}
+
+function mkOCR(fn,cat){
+  const c=0.88;
+  if(cat==='LAB')return{raw:'DEMO DOCUMENT\nCity Demo Labs\nHb: 9.2 g/dL (Ref 12-16)\nFBS: 168 mg/dL (Ref 70-100)',ent:{date:'2026-03-12',hosp:'City Demo Labs'},inv:[{n:'Hemoglobin',v:'9.2',u:'g/dL',r:'12-16',f:'LOW'},{n:'Fasting Blood Sugar',v:'168',u:'mg/dL',r:'70-100',f:'HIGH'}],med:[],cf:c};
+  if(cat==='PRESCRIPTION')return{raw:'DEMO DOCUMENT\nDr. Meera Iyer\nRx: Metformin 500 mg BD, Telmisartan 40 mg OD',ent:{date:'2026-04-12',doc:'Dr. Meera Iyer'},inv:[],med:[{name:'Metformin',dose:'500 mg',freq:'BD'},{name:'Telmisartan',dose:'40 mg',freq:'OD'}],cf:c};
+  if(cat==='DISCHARGE')return{raw:'DEMO DOCUMENT\nDischarge Summary\nPneumonia, treated. Discharged in stable condition.',ent:{date:'2025-11-06'},inv:[],med:[],cf:c};
+  return{raw:'DEMO DOCUMENT — processed.',ent:{date:new Date().toISOString().slice(0,10)},inv:[],med:[],cf:c};
+}
+
+function genSum(p,res,docs){
+  const bySec={};
+  for(let i=0;i<res.length;i++){const r=res[i];if(!bySec[r.section])bySec[r.section]=[];bySec[r.section].push(r)}
+  const titles=['Chief Complaint','History of Present Illness','Past Medical History','Past Surgical History','Current Medications','Drug / Allergy History','Family History','Personal / Social History','Review of Systems'];
+  const lines=[];
+  lines.push('PATIENT INFORMATION');
+  lines.push(p.name+' · '+p.age+' y · '+p.sex+' · '+p.department);
+  lines.push('');
+  for(let i=0;i<titles.length;i++){const s=titles[i];const items=bySec[s];if(!items||!items.length)continue;lines.push(s.toUpperCase());for(let j=0;j<items.length;j++)lines.push('• '+items[j].question+' → '+items[j].answer);lines.push('')}
+  if(docs&&docs.length){lines.push('PREVIOUS INVESTIGATIONS');for(let i=0;i<docs.length;i++)lines.push('• '+docs[i].category+' — '+docs[i].filename);lines.push('')}
+  lines.push('AI-generated draft — physician verification required.');
+  return lines.join('\n');
+}
+
+const DEMO=[
+ {n:'Ramesh Kumar',a:58,s:'Male',d:'General Medicine',c:'Routine diabetes follow-up',comp:'routine'},
+ {n:'Sunita Devi',a:42,s:'Female',d:'General Medicine',c:'Fever for three days',comp:'fever'},
+ {n:'Arjun Nair',a:63,s:'Male',d:'Emergency',c:'Severe chest pain with breathing difficulty',comp:'chest'},
+ {n:'Meera Joshi',a:35,s:'Female',d:'General Medicine',c:'General weakness',comp:'weak'},
+ {n:'Abdul Rahman',a:67,s:'Male',d:'Cardiology',c:'Chronic conditions follow-up',comp:'routine'}
+];
+
+function seed(){
+  if(DB.g('pts',[]).length)return;
+  const pts=[];const rfs=[];const res=[];const sms=[];const rvs=[];const dcs=[];const tml=[];
+  for(let i=0;i<DEMO.length;i++){
+    const d=DEMO[i];
+    const id=uid();
+    const pri=d.n==='Arjun Nair'?'CRITICAL':'NORMAL';
+    const st=d.n==='Arjun Nair'?'PRIORITY_REVIEW':d.n==='Abdul Rahman'?'PHYSICIAN_VERIFIED':'SUMMARY_READY';
+    pts.push({id:id,name:d.n,age:d.a,sex:d.s,department:d.d,language:'en',mode:'GENERAL',priority:pri,status:st,complaint:d.c,createdAt:now()});
+    res.push({id:uid(),patientId:id,section:'Chief Complaint',questionId:'cc',question:'Main problem',answer:d.c,answerType:'text',source:'PATIENT',createdAt:now()});
+    sms.push({id:uid(),patientId:id,content:'PATIENT INFORMATION\n'+d.n+' · '+d.a+' y · '+d.s+' · '+d.d+'\n\nCHIEF COMPLAINT\n• Main problem → '+d.c+'\n\nAI-generated draft — physician verification required.',status:st==='PHYSICIAN_VERIFIED'?'VERIFIED':'DRAFT',generatedAt:now()});
+    if(d.n==='Arjun Nair'){
+      rfs.push({id:uid(),patientId:id,ruleId:'RF1',reason:'Chest discomfort with breathing difficulty',severity:'CRITICAL',ack:false,createdAt:now()});
+      res.push({id:uid(),patientId:id,section:'History of Present Illness',questionId:'cpbreath',question:'Are you having difficulty breathing?',answer:'yes',answerType:'bool',source:'PATIENT',createdAt:now()});
+    }
+    if(d.n==='Abdul Rahman')rvs.push({id:uid(),patientId:id,doctorId:'doctor',notes:'Reviewed',changes:'[]',verified:true,verifiedAt:now()});
+    if(d.n==='Ramesh Kumar'){
+      dcs.push({id:uid(),patientId:id,category:'LAB',filename:'blood-test.pdf',status:'PROCESSED',uploadedAt:now()});
+      dcs.push({id:uid(),patientId:id,category:'PRESCRIPTION',filename:'old-rx.pdf',status:'PROCESSED',uploadedAt:now()});
+      tml.push({id:uid(),patientId:id,title:'Blood Test',description:'Lab values extracted',category:'LAB',eventDate:'2026-03-12'});
+      tml.push({id:uid(),patientId:id,title:'Prescription',description:'Metformin, Telmisartan',category:'PRESCRIPTION',eventDate:'2026-04-12'});
+    }
+  }
+  DB.s('pts',pts);DB.s('rfs',rfs);DB.s('res',res);DB.s('sms',sms);DB.s('rvs',rvs);DB.s('dcs',dcs);DB.s('tml',tml);
+}
+seed();
+
+let CS={pid:null,sid:null};
+let IV={started:false,complaint:'',ans:{},qs:[],rf:null};
+let AUTH=DB.g('auth',null);
+
+function nav(h){location.hash=h}
+function route(){return (location.hash||'#/').slice(1)}
+function H(role,name){
+  return '<header class="h"><div class="hi"><a href="#/" class="lg"><div class="lm">M</div><div><div class="lt">MediKiosk</div><div class="ls">From Patient Story to Physician-Ready History</div></div></a><div class="fw">'+(role?'<span class="mu">'+name+' · '+role+'</span><button class="btn bsm bs" onclick="logout()">Logout</button>':'')+'</div></div><div class="pb">Prototype — production deployment requires formal validation.</div></header>';
+}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function spk(s){if('speechSynthesis' in window)speechSynthesis.speak(new SpeechSynthesisUtterance(s))}
+function logout(){AUTH=null;DB.s('auth',null);nav('/')}
+  </script>
+
+  <script>
+function vc(cls,content){return '<div class="'+cls+'">'+(content||'')+'</div>'}
+
+function render(){
+  const r=route();
+  let html='';
+  if(r==='/'||r==='')html=land();
+  else if(r==='/patient')html=pw();
+  else if(r==='/patient/id')html=pid();
+  else if(r==='/patient/consent')html=pcs();
+  else if(r==='/patient/iv')html=piv();
+  else if(r==='/patient/dc')html=pdc();
+  else if(r==='/patient/tl')html=ptl();
+  else if(r==='/patient/sm')html=psm();
+  else if(r==='/patient/done')html=pdo();
+  else if(r==='/login')html=login();
+  else if(r==='/doctor')html=doc();
+  else if(r.indexOf('/doctor/')===0)html=docv(r.split('/')[2]);
+  else if(r==='/triage')html=tri();
+  else if(r==='/analytics')html=ana();
+  else html=land();
+  app.innerHTML=html;
+  window.scrollTo(0,0);
+  
+}
+window.addEventListener('hashchange',render);
+window.addEventListener('DOMContentLoaded',render);
+
+function land(){
+  const cards=[
+    ['#/patient','🧑‍🦱','Patient Mode','Start your medical history intake','#eff6ff'],
+    ['#/doctor','🩺','Doctor Mode','Review, verify, confirm summaries','#ecfdf5'],
+    ['#/triage','🚨','Triage / Staff','Monitor priority alerts','#fef3c7'],
+    ['#/analytics','📊','Analytics','Illustrative demo metrics','#f8fafc'],
+    ['#/login','🔐','Staff Login','Doctor / staff access','#f8fafc'],
+    ['#/patient','🚀','Start Demo','Guided SIH demonstration','#f5f3ff']
+  ];
+  let grid='';
+  for(let i=0;i<cards.length;i++){
+    const c=cards[i];
+    grid+='<a href="'+c[0]+'" class="mc" style="background:'+c[4]+'"><div class="me">'+c[1]+'</div><div class="mtt">'+c[2]+'</div><div class="ms">'+c[3]+'</div></a>';
+  }
+  return H()+'<div class="mn"><div class="ct mb4"><h1 style="font-size:32px">MediKiosk</h1><p class="mu">From Patient Story to Physician-Ready History.</p></div><div class="g2 mb4">'+grid+'</div><div class="card"><h2>Problem → Solution → Impact</h2><p class="mt2"><b>Problem:</b> High-volume OPDs leave doctors with very little time.</p><p class="mt2"><b>Solution:</b> Patient kiosk collects structured history and documents before consultation. Red flags reach triage. Doctors get a concise, source-attributed summary.</p><p class="mt2"><b>Impact:</b> Less repetitive history-taking, earlier visibility of red flags, better accessibility.</p></div><div class="card"><h2>How MediKiosk Works</h2><ol style="padding-left:20px;line-height:1.8;font-size:13px" class="mt2"><li><b>Listen</b> — the patient speaks or taps</li><li><b>Understand</b> — structured clinical interview engine</li><li><b>Digitize</b> — documents are scanned and read</li><li><b>Structure</b> — responses, labs, meds, timeline</li><li><b>Verify</b> — physician reviews and confirms</li><li><b>Route</b> — simulated ABDM / FHIR / HIS sync</li></ol></div><div class="ft">MediKiosk Prototype · SIH 2026 · Not a diagnostic device</div></div>';
+}
+
+function pw(){
+  let btns='<div class="fw mt4" style="justify-content:center"><button class="btn bp blg" onclick="nav(\'/patient/id\')">'+t('start')+'</button><button class="btn bs blg" onclick="alert(\'Please ask hospital staff. Help: 108 (Demo)\')">'+t('help')+'</button><button class="btn bs blg" onclick="spk(\''+t('sub').replace(/'/g,'')+'\')">🔊 '+t('rd')+'</button></div>';
+  return '<div class="mn ct" style="max-width:600px"><div style="font-size:44px;font-weight:900;margin-top:40px">MediKiosk</div><p class="mt3" style="font-size:18px">'+t('sub')+'</p>'+btns+'<div class="mt6"><div class="mu mb2">'+t('change_lang'||'Change Language')+'</div><div class="fw" style="justify-content:center"><button class="btn '+(L==='en'?'bp':'bs')+'" onclick="setL(\'en\')">English</button><button class="btn '+(L==='hi'?'bp':'bs')+'" onclick="setL(\'hi\')">हिन्दी</button></div></div><p class="mt6 mu">'+t('privacy')+'</p><p class="mt2 mu" style="font-size:10px">Prototype — not a diagnostic device. Physician verification required.</p></div>';
+}
+function setL(l){L=l;render()}
+
+function pid(){
+  let demoBtns='';
+  for(let i=0;i<DEMO.length;i++){
+    const d=DEMO[i];
+    demoBtns+='<button class="pc" onclick="loadD('+i+')"><div class="pi"><div class="pn">'+esc(d.n)+'</div><div class="pm">'+d.a+' y · '+d.s+' · '+esc(d.d)+'</div><div class="pcm">'+esc(d.c)+'</div></div></button>';
+  }
+  return H()+'<div class="mn"><h1>Patient Identification</h1><p class="mu mb3">Demo mode. ABHA Integration — Demonstration Mode.</p><div class="card"><div style="font-weight:700;margin-bottom:8px">🎬 Demo Patients (one-tap load)</div><div class="g2">'+demoBtns+'</div></div><div class="card"><div class="g2"><label><div class="lb">'+t('name')+'</div><input class="in" id="fn"></label><label><div class="lb">'+t('age')+'</div><input class="in" id="fa" type="number"></label><label><div class="lb">'+t('sex')+'</div><select class="in" id="fs"><option>Male</option><option>Female</option><option>Other</option></select></label><label><div class="lb">'+t('dept')+'</div><select class="in" id="fd"><option>General Medicine</option><option>Cardiology</option><option>Emergency</option><option>AYUSH</option></select></label></div><div class="fw mt4" style="justify-content:flex-end"><button class="btn bs" onclick="nav(\'/patient\')">'+t('back')+'</button><button class="btn bp" onclick="subId()">'+t('cont')+'</button></div></div></div>';
+}
+function loadD(i){
+  const d=DEMO[i];
+  document.getElementById('fn').value=d.n;
+  document.getElementById('fa').value=d.a;
+  document.getElementById('fs').value=d.s;
+  document.getElementById('fd').value=d.d;
+  window._demoComplaint=d.c;
+}
+function subId(){
+  const n=document.getElementById('fn').value.trim();
+  const a=parseInt(document.getElementById('fa').value)||0;
+  if(!n||!a){alert('Please enter name and age.');return}
+  const p={id:uid(),name:n,age:a,sex:document.getElementById('fs').value,department:document.getElementById('fd').value,language:L,mode:'GENERAL',priority:'NORMAL',status:'IN_PROGRESS',complaint:window._demoComplaint||'',createdAt:now()};
+  DB.push('pts',p);
+  const s={id:uid(),patientId:p.id,language:L,mode:'GENERAL',status:'IN_PROGRESS',startedAt:now()};
+  DB.push('ses',s);
+  CS.pid=p.id;CS.sid=s.id;
+  IV={started:false,complaint:window._demoComplaint||'',ans:{},qs:[],rf:null};
+  window._demoComplaint=null;
+  nav('/patient/consent');
+}
+
+function pcs(){
+  return '<div class="mn" style="max-width:640px"><h1>'+t('consent')+'</h1><div class="card"><p style="font-size:16px">'+t('cbody')+'</p><details class="mt3"><summary style="cursor:pointer;font-weight:700">View details</summary><ul class="mt2 mu" style="padding-left:20px;line-height:1.8"><li>What: symptoms, history, medications, allergies</li><li>Why: help your doctor understand faster</li><li>Who: your doctor and authorized staff</li><li>Documents: prescriptions, reports, discharges</li><li>Sharing: only with your consent, withdrawable</li></ul></details><div class="fw mt4"><button class="btn bp blg" onclick="decC(1)">'+t('agree')+'</button><button class="btn bs blg" onclick="decC(0)">'+t('decline')+'</button><button class="btn bg" onclick="spk(\''+t('cbody').replace(/'/g,'')+'\')">'+t('rd')+'</button></div></div></div>';
+}
+function decC(g){
+  if(g){nav('/patient/iv')}
+  else{app.innerHTML='<div class="mn ct" style="padding-top:80px"><div style="font-size:50px">🛑</div><h1 class="mt3">Consent not given</h1><p class="mt3 mu">We can\'t continue without your consent.</p></div>'}
+}
+
+function piv(){
+  if(!IV.started){
+    const def=IV.complaint||'';
+    return '<div class="mn" style="max-width:640px"><h1>'+t('iv')+'</h1><p class="mu mb3">'+t('cp')+'</p><div class="card"><textarea class="in" id="cinput" style="min-height:110px;font-size:16px" placeholder="e.g. I have chest pain since morning">'+esc(def)+'</textarea><div class="vw"><button class="vb" id="vbtn" onclick="voiceInput()">🎤</button><div class="vs" id="vstatus">Tap to speak your answer</div></div><div class="fw mt3" style="justify-content:flex-end"><button class="btn bp blg" onclick="startIV()">'+t('cont')+'</button></div></div></div>';
+  }
+  if(IV.rf){
+    return '<div class="mn" style="max-width:640px"><div class="rf"><div class="rfh"><div class="rfi">!</div><div><div style="font-weight:800;font-size:16px">Please note</div><div style="font-size:13px">'+IV.rf+'</div></div></div></div><p class="mu">Your information has been preserved and shared with medical staff.</p><div class="fw mt4" style="justify-content:flex-end"><button class="btn bp blg" onclick="IV.rf=null;nav(\'/patient/dc\')">Continue with documents</button></div></div>';
+  }
+  const q=nxtQ(IV.qs,IV.ans);
+  if(!q)return '<div class="mn ct" style="max-width:640px"><div style="font-size:50px">✅</div><h2 class="mt3">Interview complete</h2><p class="mu mt2">Now let\'s add documents if you have any.</p><button class="btn bp blg mt4" onclick="nav(\'/patient/dc\')">Continue</button></div>';
+  const progPct=Math.round(prog(IV.qs,IV.ans)*100);
+  let input='';
+  if(q.ty==='bool'){
+    input='<div class="cg"><button class="cb y" onclick="ans(\''+q.id+'\',\'yes\',\''+q.ty+'\','+(q.rf?1:0)+')">'+t('yes')+'</button><button class="cb n" onclick="ans(\''+q.id+'\',\'no\',\''+q.ty+'\',0)">'+t('no')+'</button><button class="cb" onclick="ans(\''+q.id+'\',\'not_sure\',\''+q.ty+'\',0)">'+t('ns')+'</button><button class="cb" onclick="ans(\''+q.id+'\',\'prefer_not\',\''+q.ty+'\',0)">'+t('pna')+'</button></div>';
+  }else if(q.ty==='ch'){
+    input='<div class="cg">';
+    for(let i=0;i<q.opts.length;i++){const o=q.opts[i];input+='<button class="cb" onclick="ans(\''+q.id+'\',\''+o.v+'\',\''+q.ty+'\',0)">'+esc(o.l)+'</button>'}
+    input+='</div>';
+  }else if(q.ty==='scale'){
+    input='<div class="sr">';
+    for(let i=q.min;i<=q.max;i++){input+='<button class="sbb" onclick="ans(\''+q.id+'\',\''+i+'\',\''+q.ty+'\',0)">'+i+'</button>'}
+    input+='</div>';
+  }else{
+    input='<input class="in" id="tin" type="'+q.ty+'" placeholder="Type or use the microphone" onkeydown="if(event.key===\'Enter\')ansTxt(\''+q.id+'\',\''+q.ty+'\','+(q.rf?1:0)+')"><div class="vw"><button class="vb" id="vbtn" onclick="voiceInput()">🎤</button><div class="vs" id="vstatus">Tap to speak your answer</div></div><div class="fw mt2" style="justify-content:flex-end"><button class="btn bp" onclick="ansTxt(\''+q.id+'\',\''+q.ty+'\','+(q.rf?1:0)+')">'+t('cont')+'</button></div>';
+  }
+  return '<div class="mn" style="max-width:640px"><div class="mb3"><div class="mu mb2">Medical History · '+progPct+'%</div><div class="pr"><div class="pf" style="width:'+progPct+'%"></div></div></div><div class="card"><div class="mu" style="text-transform:uppercase;color:var(--b);font-weight:700;margin-bottom:5px">'+esc(q.sec)+'</div><h2 style="line-height:1.3">'+esc(q.txt)+'</h2><div class="mt4">'+input+'</div></div><div class="mt3 fw" style="justify-content:space-between"><span class="mu">Answer honestly. If unsure, choose "Not sure".</span><button class="btn bg bsm" onclick="spk(\''+q.txt.replace(/'/g,'')+'\')">🔊 Repeat</button></div></div>';
+}
+function startIV(){
+  const c=document.getElementById('cinput').value.trim();
+  if(!c){alert('Please describe your main problem.');return}
+  IV.started=true;IV.complaint=c;IV.ans={};
+  IV.qs=bldQ(c);
+  IV.ans['_c']=c;
+  // Save initial complaint
+  DB.push('res',{id:uid(),patientId:CS.pid,section:'Chief Complaint',questionId:'cc',question:'Main problem',answer:c,answerType:'text',source:'PATIENT',createdAt:now()});
+  render();
+}
+function ans(qid,val,ty,isRf){
+  IV.ans[qid]=val;
+  const q=IV.qs.find(x=>x.id===qid);
+  if(q)DB.push('res',{id:uid(),patientId:CS.pid,section:q.sec,questionId:qid,question:q.txt,answer:val,answerType:ty,source:'PATIENT',createdAt:now()});
+  if(isRf&&val==='yes'){
+    DB.push('rfs',{id:uid(),patientId:CS.pid,ruleId:qid,reason:q?q.txt:'Red flag',severity:'CRITICAL',ack:false,createdAt:now()});
+    DB.upd('pts',CS.pid,{priority:'CRITICAL',status:'PRIORITY_REVIEW'});
+    IV.rf=t('rf');
+  }
+  const compound=detRF(IV.ans);
+  if(compound.length&&!IV.rf){
+    IV.rf=t('rf');
+    for(let i=0;i<compound.length;i++){
+      DB.push('rfs',{id:uid(),patientId:CS.pid,ruleId:compound[i].ruleId,reason:compound[i].reason,severity:compound[i].severity,ack:false,createdAt:now()});
+    }
+    DB.upd('pts',CS.pid,{priority:'CRITICAL',status:'PRIORITY_REVIEW'});
+  }
+  render();
+}
+function ansTxt(qid,ty,isRf){
+  const v=(document.getElementById('tin')||{}).value||'';
+  if(!v.trim())return;
+  ans(qid,v.trim(),ty,isRf);
+}
+function voiceInput(){
+  const b=document.getElementById('vbtn');const s=document.getElementById('vstatus');
+  if(!b)return;
+  b.classList.add('lst');if(s)s.textContent='Listening…';
+  const samples=['I have chest pain since this morning','I have fever for three days','I feel weak and tired','I have pain in my stomach','yes','no','three days'];
+  setTimeout(function(){
+    if(s)s.textContent='Processing…';
+    setTimeout(function(){
+      const r=samples[Math.floor(Math.random()*samples.length)];
+      if(s)s.textContent='You said: "'+r+'"';
+      if(b)b.classList.remove('lst');
+      const ta=document.getElementById('cinput');if(ta)ta.value=r;
+      const ti=document.getElementById('tin');if(ti)ti.value=r;
+    },800);
+  },900);
+}
+
+const DCATS=[['PRESCRIPTION','Prescription'],['LAB','Laboratory report'],['DISCHARGE','Discharge summary'],['IMAGING','Imaging report'],['CONSULT','Previous consultation'],['OTHER','Other']];
+function pdc(){
+  let cats='';
+  for(let i=0;i<DCATS.length;i++){const c=DCATS[i];cats+='<div class="card"><div style="font-weight:700">'+c[1]+'</div><input type="file" accept="image/*,application/pdf" style="margin-top:8px" onchange="upDoc(event,\''+c[0]+'\')"></div>'}
+  return H()+'<div class="mn"><h1>'+t('dc')+'</h1><p class="mu mb3">Optional but helpful. Upload or photograph prescriptions, lab reports, discharges.</p><div class="g2">'+cats+'</div><div id="uplist"></div><div class="fw mt6" style="justify-content:flex-end"><button class="btn bs blg" onclick="nav(\'/patient/tl\')">View Timeline</button><button class="btn bp blg" onclick="nav(\'/patient/sm\')">'+t('cont')+'</button></div></div>';
+}
+function upDoc(evt,cat){
+  const f=evt.target.files[0];if(!f)return;
+  const d={id:uid(),patientId:CS.pid,category:cat,filename:f.name,status:'PROCESSING',uploadedAt:now()};
+  DB.push('dcs',d);
+  const list=document.getElementById('uplist');
+  const card=document.createElement('div');card.className='card';
+  card.innerHTML='<div style="font-weight:700">'+esc(f.name)+'</div><div class="mu">'+cat+'</div><div class="stg" id="stg-'+d.id+'"></div>';
+  list.appendChild(card);
+  const stgs=['Image received','Text detected','Extracting medical information','Organizing timeline'];
+  let i=0;
+  const int=setInterval(function(){
+    const el=document.getElementById('stg-'+d.id);
+    if(!el){clearInterval(int);return}
+    let h='';
+    for(let k=0;k<stgs.length;k++){
+      if(k<i)h+='<div class="sd">✓ '+stgs[k]+'</div>';
+      else if(k===i)h+='<div class="sa">● '+stgs[k]+'</div>';
+      else h+='<div class="sp">○ '+stgs[k]+'</div>';
+    }
+    el.innerHTML=h;i++;
+    if(i>stgs.length){
+      clearInterval(int);
+      const ocr=mkOCR(f.name,cat);
+      DB.upd('dcs',d.id,{status:'PROCESSED'});
+      DB.push('tml',{id:uid(),patientId:CS.pid,title:cat,description:ocr.ent.hosp||'Document processed',category:cat,eventDate:ocr.ent.date||now().slice(0,10)});
+      if(el)el.innerHTML+='<div class="sd" style="margin-top:6px">✓ Processed · needs verification</div>';
+    }
+  },400);
+}
+
+function ptl(){
+  const events=DB.g('tml',[]).filter(e=>e.patientId===CS.pid);
+  let content='';
+  if(!events.length){content='<div class="card"><p class="mu">No documents uploaded yet. You can continue to the summary.</p></div>'}
+  else{
+    content='<div class="tl">';
+    for(let i=0;i<events.length;i++){const e=events[i];content+='<div class="ti"><div class="tdot"></div><div class="tdt">'+esc(e.eventDate)+'</div><div class="ttl">'+esc(e.title)+'</div><div class="tds">'+esc(e.description)+'</div></div>'}
+    content+='</div>';
+  }
+  return H()+'<div class="mn"><h1>'+t('tl')+'</h1><div class="mt4">'+content+'</div><div class="fw mt6" style="justify-content:flex-end"><button class="btn bp blg" onclick="nav(\'/patient/sm\')">Continue to Summary</button></div></div>';
+}
+
+function psm(){
+  const p=DB.find('pts',CS.pid);
+  const responses=DB.g('res',[]).filter(r=>r.patientId===CS.pid);
+  const docs=DB.g('dcs',[]).filter(d=>d.patientId===CS.pid);
+  const content=genSum(p,responses,docs);
+  const ex=DB.g('sms',[]).find(s=>s.patientId===CS.pid);
+  if(ex)DB.upd('sms',ex.id,{content:content});
+  else DB.push('sms',{id:uid(),patientId:CS.pid,content:content,status:'DRAFT',generatedAt:now()});
+  return H()+'<div class="mn" style="max-width:640px"><h1>'+t('sm')+'</h1><p class="mu mb3">This draft was prepared with AI assistance. A doctor will verify it.</p><div class="card"><pre>'+esc(content)+'</pre></div><div class="fw mt4" style="justify-content:flex-end"><button class="btn bs blg" onclick="nav(\'/patient/tl\')">'+t('back')+'</button><button class="btn bp blg" onclick="submitSummary()">Submit</button></div><p class="mt3 mu ct">'+t('ai')+'</p></div>';
+}
+function submitSummary(){
+  const rfs=DB.g('rfs',[]).filter(r=>r.patientId===CS.pid);
+  const isPri=rfs.length>0;
+  const patient=DB.find('pts',CS.pid);
+  DB.upd('pts',CS.pid,{status:isPri?'PRIORITY_REVIEW':'WAITING_FOR_DOCTOR'});
+  if(patient){
+    const msg=(isPri?'🚨 PRIORITY ALERT':'✅ New Patient Intake')+'\n\nName: '+patient.name+'\nAge: '+patient.age+' y · '+patient.sex+'\nDept: '+patient.department+'\nComplaint: '+(patient.complaint||'-')+'\nTime: '+new Date().toLocaleString('en-IN')+'\n\nOpen: https://delightful-otter-d83759.netlify.app';
+    const tg='https://api.telegram.org/bot8833484360:AAGOJw3ntjGoMQb5uNijy3Luks8tL4jQDNA/sendMessage?chat_id=860421133&text='+encodeURIComponent(msg);
+    fetch(tg).then(r=>r.json()).then(d=>console.log('TG:',d)).catch(e=>console.log('TG ERR:',e));
+  }
+  nav('/patient/done');
+    }
+function pdo(){
+  const p=DB.find('pts',CS.pid);
+  const isPri=p&&p.priority==='CRITICAL';setTimeout(function(){nav('/')},15000);
+  return '<div class="mn ct" style="max-width:520px;padding-top:60px"><div style="font-size:60px">'+(isPri?'🚨':'✅')+'</div><h1 class="mt3">'+(isPri?'Priority Review':t('done'))+'</h1><p class="mt3">'+(isPri?t('pmsg'):t('dmsg'))+'</p><p class="mt4 mu" style="font-size:11px">Your information has been securely saved and shared with the healthcare team.</p></div>';
+}
+
+function login(){
+  return '<div class="mn" style="max-width:400px;padding-top:60px"><div class="card"><h1>Staff Login</h1><p class="mu mb3">Demo: doctor/doctor123 · staff/staff123</p><label><div class="lb">Username</div><input class="in" id="lu" autocomplete="username"></label><label class="mt3"><div class="lb">Password</div><input class="in" id="lp" type="password" autocomplete="current-password"></label><button class="btn bp blg mt4" style="width:100%" onclick="doLogin()">Sign in</button></div><div class="ct mt3"><a href="#/" class="btn bg">← Back to home</a></div></div>';
+}
+function doLogin(){
+  const u=document.getElementById('lu').value.trim();
+  const p=document.getElementById('lp').value;
+  if(u==='doctor'&&p==='doctor123'){AUTH={u:u,role:'DOCTOR',name:'Dr. Ananya Sharma'};DB.s('auth',AUTH);nav('/doctor')}
+  else if(u==='staff'&&p==='staff123'){AUTH={u:u,role:'STAFF',name:'Triage Nurse Priya'};DB.s('auth',AUTH);nav('/triage')}
+  else alert('Invalid credentials. Try doctor/doctor123 or staff/staff123.');
+}
+
+function doc(){
+  const pts=DB.g('pts',[]);
+  const counts={total:pts.length,wait:0,inprog:0,sready:0,pri:0,ver:0};
+  for(let i=0;i<pts.length;i++){const p=pts[i];
+    if(p.status==='WAITING_FOR_DOCTOR')counts.wait++;
+    if(p.status==='IN_PROGRESS')counts.inprog++;
+    if(p.status==='SUMMARY_READY'||p.status==='WAITING_FOR_DOCTOR')counts.sready++;
+    if(p.priority!=='NORMAL')counts.pri++;
+    if(p.status==='PHYSICIAN_VERIFIED'||p.status==='COMPLETED')counts.ver++;
+  }
+  let cards='';
+  for(let i=0;i<pts.length;i++){
+    const p=pts[i];
+    const ini=p.name.charAt(0).toUpperCase();
+    const priority=p.priority==='CRITICAL'?'<span class="bdg bc">CRITICAL</span>':p.priority==='HIGH'?'<span class="bdg bh">HIGH</span>':'';
+    cards+='<a href="#/doctor/'+p.id+'" class="pc '+(p.priority==='CRITICAL'?'pri':'')+'"><div class="pa">'+ini+'</div><div class="pi"><div class="pn">'+esc(p.name)+' '+priority+'</div><div class="pm">'+p.age+' y · '+p.sex+' · '+esc(p.department)+'</div><div class="pcm">'+esc(p.complaint||'—')+'</div><div class="pm mt2">Status: '+esc(p.status)+'</div></div></a>';
+
+
+
+    }
+      const stats='<div class="g3 mb4"><div class="st"><div class="sv">'+counts.total+'</div><div class="sl2">Today\'s Patients</div></div><div class="st"><div class="sv">'+counts.wait+'</div><div class="sl2">Waiting</div></div><div class="st"><div class="sv">'+counts.sready+'</div><div class="sl2">Summary Ready</div></div><div class="st"><div class="sv" style="color:var(--d)">'+counts.pri+'</div><div class="sl2">Priority</div></div><div class="st"><div class="sv" style="color:var(--s)">'+counts.ver+'</div><div class="sl2">Verified</div></div><div class="st"><div class="sv">'+counts.inprog+'</div><div class="sl2">In Progress</div></div></div>';
+  return H(AUTH?AUTH.role:'',AUTH?AUTH.name:'')+'<div class="mn"><h1>Doctor Dashboard</h1><p class="mu mb4">Review, verify, and confirm patient summaries.</p>'+stats+(pts.length?'':'<div class="card emp"><div class="ei">📋</div><div class="et">No patients yet</div></div>')+cards+'</div>';
+}
+
+function docv(id){
+  const p=DB.find('pts',id);
+  if(!p){nav('/doctor');return ''}
+  const sm=DB.g('sms',[]).find(s=>s.patientId===id);
+  const res=DB.g('res',[]).filter(r=>r.patientId===id);
+  const docs=DB.g('dcs',[]).filter(d=>d.patientId===id);
+  const rfs=DB.g('rfs',[]).filter(r=>r.patientId===id);
+  const rv=DB.g('rvs',[]).find(r=>r.patientId===id);
+  const verified=(sm&&sm.status==='VERIFIED')||(rv&&rv.verified);
+  let rfBox='';
+  if(rfs.length){
+    let reasons=[];for(let i=0;i<rfs.length;i++)reasons.push(esc(rfs[i].reason));
+    rfBox='<div class="rf mb3"><div class="rfh"><div class="rfi">!</div><div><div style="font-weight:800">Priority Alert</div><div style="font-size:12px">'+reasons.join(' · ')+'</div></div></div></div>';
+  }
+  let src='';
+  for(let i=0;i<res.length;i++){const r=res[i];src+='<div style="padding:8px;border-bottom:1px solid var(--br);font-size:12px"><div class="mu">'+esc(r.section)+' · <b>'+esc(r.question)+'</b></div><div class="mt2">'+esc(r.answer)+'</div><div class="mu mt2" style="font-size:10px">Source: PATIENT</div></div>'}
+  let docList='';
+  if(docs.length){for(let i=0;i<docs.length;i++){const d=docs[i];docList+='<div style="padding:10px;border:1px solid var(--br);border-radius:10px;margin-bottom:6px"><b>'+esc(d.filename)+'</b><div class="mu">'+d.category+' · '+d.status+'</div></div>'}}
+  else{docList='<div class="emp"><div class="ei">📄</div><div class="et">No documents</div></div>'}
+  let verifyBox='';
+  if(verified){
+    verifyBox='<div class="card" style="background:#ecfdf5;border-color:#a7f3d0"><div style="font-weight:800;color:#065f46">✓ PHYSICIAN VERIFIED</div></div>';
+  }else{
+    verifyBox='<div class="card"><div class="lb">Notes</div><textarea class="in" id="notes" style="min-height:60px">'+(rv?esc(rv.notes):'')+'</textarea><button class="btn bp blg mt3" style="width:100%" onclick="verify(\''+id+'\')">Confirm Summary</button></div>';
+  }
+  return H(AUTH?AUTH.role:'',AUTH?AUTH.name:'')+'<div class="mn"><a href="#/doctor" class="btn bg bsm mb3">← Back to dashboard</a>'+rfBox+'<div class="card"><h1>'+esc(p.name)+'</h1><p class="mu">'+p.age+' y · '+p.sex+' · '+esc(p.department)+'</p></div><div class="card"><div class="mu" style="text-transform:uppercase;font-weight:700;color:var(--b)">AI Summary (Draft)</div><pre class="mt2">'+esc(sm?sm.content:'Summary not yet generated.')+'</pre></div><div class="card"><h3>Source: Patient Responses ('+res.length+')</h3><div class="mt2">'+src+'</div></div><div class="card"><h3>Documents ('+docs.length+')</h3>'+docList+'</div>'+verifyBox+'</div>';
+}
+function verify(id){
+  const notes=(document.getElementById('notes')||{}).value||'';
+  const sm=DB.g('sms',[]).find(s=>s.patientId===id);
+  if(sm)DB.upd('sms',sm.id,{status:'VERIFIED',verifiedAt:now()});
+  const ex=DB.g('rvs',[]).find(r=>r.patientId===id);
+  if(ex)DB.upd('rvs',ex.id,{notes:notes,verified:true,verifiedAt:now()});
+  else DB.push('rvs',{id:uid(),patientId:id,doctorId:AUTH?AUTH.u:'doctor',notes:notes,changes:'[]',verified:true,verifiedAt:now()});
+  DB.upd('pts',id,{status:'PHYSICIAN_VERIFIED'});
+  render();
+    }
+
+
+    function tri(){
+  const pts=DB.g('pts',[]);
+  const rfs=DB.g('rfs',[]);
+  let alerts='';
+  if(rfs.length){
+    for(let i=0;i<rfs.length;i++){
+      const r=rfs[i];
+      const p=DB.find('pts',r.patientId);
+      if(!p)continue;
+      const ini=p.name.charAt(0).toUpperCase();
+      alerts+='<div class="card" style="border-left:4px solid var(--d)"><div class="bgw"><div><div class="pn" style="font-size:15px">'+esc(p.name)+'</div><div class="pm">'+p.age+' y · '+p.sex+' · '+esc(p.department)+'</div><div class="pcm mt2" style="color:#991b1b">⚠ '+esc(r.reason)+'</div></div><div><span class="bdg bc">CRITICAL</span></div></div><div class="fw mt3">'+(r.ack?'<span class="bdg bok">✓ Acknowledged</span>':'<button class="btn bd bsm" onclick="ackRF(\''+r.id+'\')">Acknowledge</button>')+'<a href="#/doctor/'+p.id+'" class="btn bs bsm">Open Record</a></div></div>';
+    }
+  }else{
+    alerts='<div class="card emp"><div class="ei">✅</div><div class="et">No priority alerts</div><p class="mu mt2">All patients are within normal priority.</p></div>';
+  }
+  const stats='<div class="g3 mb4"><div class="st"><div class="sv">'+pts.length+'</div><div class="sl2">Total Patients</div></div><div class="st"><div class="sv" style="color:var(--d)">'+rfs.filter(r=>!r.ack).length+'</div><div class="sl2">Active Alerts</div></div><div class="st"><div class="sv">'+rfs.filter(r=>r.ack).length+'</div><div class="sl2">Acknowledged</div></div></div>';
+  return H(AUTH?AUTH.role:'',AUTH?AUTH.name:'')+'<div class="mn"><h1>🚨 Triage Dashboard</h1><p class="mu mb4">Monitor priority alerts and patient status.</p>'+stats+'<h2>Priority Alerts</h2>'+alerts+'</div>';
+}
+function ackRF(id){
+  DB.upd('rfs',id,{ack:true});
+  const r=DB.find('rfs',id);
+  if(r)DB.upd('pts',r.patientId,{status:'WAITING_FOR_DOCTOR'});
+  render();
+}
+
+function ana(){
+  const pts=DB.g('pts',[]);
+  const rfs=DB.g('rfs',[]);
+  const dcs=DB.g('dcs',[]);
+  const sms=DB.g('sms',[]);
+  const rvs=DB.g('rvs',[]);
+  const langs={en:0,hi:0};
+  for(let i=0;i<pts.length;i++){if(pts[i].language==='hi')langs.hi++;else langs.en++}
+  return H(AUTH?AUTH.role:'',AUTH?AUTH.name:'')+'<div class="mn"><h1>📊 Analytics</h1><p class="mu mb4">Illustrative Demo Data — not measured clinical outcomes.</p><div class="g3 mb4"><div class="st"><div class="sv">'+pts.length+'</div><div class="sl2">Patients Processed</div></div><div class="st"><div class="sv">'+sms.length+'</div><div class="sl2">Summaries Generated</div></div><div class="st"><div class="sv">'+dcs.length+'</div><div class="sl2">Documents Processed</div></div><div class="st"><div class="sv">'+rfs.length+'</div><div class="sl2">Priority Alerts</div></div><div class="st"><div class="sv">'+rvs.length+'</div><div class="sl2">Physician Verifications</div></div><div class="st"><div class="sv">~4 min</div><div class="sl2">Avg Intake (illustrative)</div></div></div><div class="card"><h3>Language Distribution</h3><div class="mt3"><div class="mu">English: '+langs.en+'</div><div class="pr mt2"><div class="pf" style="width:'+(pts.length?Math.round(langs.en/pts.length*100):0)+'%"></div></div><div class="mu mt3">Hindi: '+langs.hi+'</div><div class="pr mt2"><div class="pf" style="width:'+(pts.length?Math.round(langs.hi/pts.length*100):0)+'%"></div></div></div></div><div class="card"><h3>Illustrative Impact</h3><ul style="padding-left:20px;line-height:1.8;font-size:13px" class="mt2"><li>Less repetitive history-taking</li><li>Better-organized patient information</li><li>Earlier visibility of potential red flags</li><li>Reduced dependence on paper records</li><li>Improved accessibility for low-literacy patients</li><li>More focused physician consultation</li></ul></div></div>';
+}
+</script>
+</body>
+</html>
